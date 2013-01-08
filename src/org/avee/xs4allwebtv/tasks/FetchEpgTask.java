@@ -16,6 +16,7 @@ import util.EPGID;
 import util.HttpUtil;
 
 import android.app.Activity;
+import android.text.Html;
 
 public class FetchEpgTask extends BaseTask<Void, Void, JSONObject> {
 	private ChannelAdapter adapter;
@@ -39,7 +40,8 @@ public class FetchEpgTask extends BaseTask<Void, Void, JSONObject> {
 					Date start = df.parse(program.getString("time_start"));
 					Date end = df.parse(program.getString("time_end"));
 					if(start.before(now) && end.after(now)) {
-						channel.setCurrentProgram(program.getString("title"));
+						String title = Html.fromHtml(program.getString("title")).toString();
+						channel.setCurrentProgram(title);
 						break;
 					}
 				}

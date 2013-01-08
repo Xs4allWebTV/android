@@ -1,0 +1,8 @@
+﻿0.8.1
+ - Decode html entities in program titles
+ - Add setting for stream quality
+ - Skip channels marked 'local' (i.e. BijlageTV) which need aditional handling
+ - Don't crash when opening a channel fails
+ 
+0.8
+ - Initial version

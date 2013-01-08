@@ -1,5 +1,7 @@
 package org.avee.xs4allwebtv;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,22 +11,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ChannelAdapter extends BaseAdapter {
-	private ChannelInfo[] channels;
+	private ArrayList<ChannelInfo> channels;
 	Context context;
 	
-	public ChannelAdapter(Context context, ChannelInfo[] channels) {
+	public ChannelAdapter(Context context, ArrayList<ChannelInfo> channels) {
 		this.channels = channels;
 		this.context = context;
 	}
 
 	@Override
 	public int getCount() {
-		return getChannels().length;
+		return getChannels().size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return getChannels()[position];
+		return getChannels().get(position);
 	}
 
 	@Override
@@ -39,7 +41,7 @@ public class ChannelAdapter extends BaseAdapter {
 			LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			result = vi.inflate(R.layout.channel_row, parent, false);
 		}
-		ChannelInfo channel = getChannels()[position];
+		ChannelInfo channel = getChannels().get(position);
 		TextView txtName = (TextView) result.findViewById(R.id.txtChannelName);
 		txtName.setText(channel.getChannelName());	
 		ImageView img = (ImageView) result.findViewById(R.id.imgChannelLogo);
@@ -49,7 +51,7 @@ public class ChannelAdapter extends BaseAdapter {
 		return result;
 	}
 
-	public ChannelInfo[] getChannels() {
+	public ArrayList<ChannelInfo> getChannels() {
 		return channels;
 	}
 }

@@ -11,12 +11,18 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+/***
+ * Background task to fetch a channel logo.
+ * 
+ * @author AVee
+ */
 public class FetchChannelLogoTask extends BaseTask<Void, Void, Bitmap> {
 
 	private ChannelAdapter adapter;
 	private int position;
 
-	protected FetchChannelLogoTask(Activity context, ChannelAdapter adapter, int position) {
+	protected FetchChannelLogoTask(Activity context, ChannelAdapter adapter,
+			int position) {
 		super(context, null);
 		this.adapter = adapter;
 		this.position = position;
@@ -33,15 +39,15 @@ public class FetchChannelLogoTask extends BaseTask<Void, Void, Bitmap> {
 	protected Bitmap doInBackground(Void... params) {
 		try {
 			ChannelInfo info = (ChannelInfo) adapter.getItem(position);
-			
-	        // create a url object
-	        URL url = new URL(String.format(URLS.CHANNEL_LOGO, info.getChannelKey()));
 
-	        // create a urlconnection object
-	        URLConnection urlConnection = url.openConnection();
-	        return BitmapFactory.decodeStream(urlConnection.getInputStream());
-		}
-		catch(Exception e) {
+			// create a url object
+			URL url = new URL(String.format(URLS.CHANNEL_LOGO,
+					info.getChannelKey()));
+
+			// create a urlconnection object
+			URLConnection urlConnection = url.openConnection();
+			return BitmapFactory.decodeStream(urlConnection.getInputStream());
+		} catch (Exception e) {
 			error = e;
 			return null;
 		}

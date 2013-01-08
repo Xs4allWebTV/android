@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <string-array name="streamQuality">
+        <item name="low">Low</item>
+        <item name="medium">Medium</item>
+        <item name="high">High</item>
+        <!-- <item name="hd">HD</item> -->
+    </string-array>
+
+    <string-array name="streamQualityValues">
+        <item name="low">low</item>
+        <item name="medium">medium</item>
+        <item name="high">high</item>
+        <!-- <item name="hd">hd</item> -->
+    </string-array>
+</resources>

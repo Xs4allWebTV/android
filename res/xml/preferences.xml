@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <ListPreference android:dialogTitle="Stream Quality"
+        			android:title="Stream Quality"
+        			android:key="quality"
+        			android:defaultValue="high"
+        			android:entries="@array/streamQuality"
+        			android:entryValues="@array/streamQualityValues"/>
+    
+
+</PreferenceScreen>
