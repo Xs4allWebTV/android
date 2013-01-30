@@ -1,4 +1,9 @@
-﻿0.8.1
+﻿0.8.2
+ - Video playback in the app
+ - Setting to optionally use an external player
+ - Setting to force landscape when playing video
+ 
+0.8.1
  - Decode html entities in program titles
  - Add setting for stream quality
  - Skip channels marked 'local' (i.e. BijlageTV) which need aditional handling

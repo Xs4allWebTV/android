@@ -2,10 +2,17 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
     <ListPreference android:dialogTitle="Stream Quality"
         			android:title="Stream Quality"
-        			android:key="quality"
+        			android:key="videoQuality"
         			android:defaultValue="high"
         			android:entries="@array/streamQuality"
         			android:entryValues="@array/streamQualityValues"/>
-    
+    <CheckBoxPreference android:title="Use external player"
+        				android:key="videoExternal"
+        				android:defaultValue="false"
+        				android:disableDependentsState="true"/>
+    <CheckBoxPreference android:title="Landscape Video"
+        				android:key="videoLandscape"
+        				android:defaultValue="true"
+        				android:dependency="videoExternal"/>
 
 </PreferenceScreen>

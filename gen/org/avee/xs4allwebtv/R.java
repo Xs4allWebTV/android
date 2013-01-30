@@ -24,13 +24,15 @@ public final class R {
     public static final class id {
         public static final int imgChannelLogo=0x7f090001;
         public static final int listChannels=0x7f090000;
-        public static final int menu_settings=0x7f090004;
+        public static final int menu_settings=0x7f090005;
         public static final int txtChannelName=0x7f090002;
         public static final int txtCurrentProgram=0x7f090003;
+        public static final int videoview=0x7f090004;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int channel_row=0x7f030001;
+        public static final int video_view=0x7f030002;
     }
     public static final class menu {
         public static final int activity_main=0x7f080000;

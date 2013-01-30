@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+    <VideoView android:id="@+id/videoview"   
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent" />
+
+<!-- Overlay over video  
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/ControlLayout"
+		android:layout_gravity="bottom|center_horizontal">
+	
+
+		<Button
+		    android:text="Knopje"
+		    android:id="@+id/Button01"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" /> 
+	</LinearLayout>
+-->
+</FrameLayout>

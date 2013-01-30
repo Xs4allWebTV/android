@@ -3,11 +3,11 @@ package org.avee.xs4allwebtv.tasks;
 import org.avee.xs4allwebtv.ChannelInfo;
 import org.avee.xs4allwebtv.MainActivity;
 import org.avee.xs4allwebtv.URLS;
+import org.avee.xs4allwebtv.VideoActivity;
 import org.json.JSONObject;
 
 import util.HttpUtil;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -25,7 +25,7 @@ public class OpenStreamTask extends BaseTask<ChannelInfo, Void, String> {
 	protected String doInBackground(ChannelInfo... args) {
 		try	{
 			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-			String quality = pref.getString("quality", "high");
+			String quality = pref.getString("videoQuality", "high");
 	    	JSONObject obj = HttpUtil.fetchJSONObject(String.format(URLS.CHANNEL_STREAM, args[0].getChannelKey(), "apple", quality));
 	    	return obj.getString("streamurl");
 		}
@@ -38,7 +38,11 @@ public class OpenStreamTask extends BaseTask<ChannelInfo, Void, String> {
     @Override
     protected void onSuccess(String result) {
         try {
-	    	Intent i = new Intent();
+			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+			Boolean playExternal = pref.getBoolean("videoExternal", false);
+			Intent i = new Intent();
+	    	if(!playExternal)
+	    		i.setClass(context, VideoActivity.class);
 	        i.setAction(Intent.ACTION_VIEW);
 	        Uri uri = Uri.parse(result);
 	        i.setDataAndType(uri, "video/*");
