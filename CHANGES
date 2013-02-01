@@ -1,7 +1,8 @@
 ﻿0.8.2
- - Video playback in the app
- - Setting to optionally use an external player
- - Setting to force landscape when playing video
+ - Switch all API urls to https.
+ - Video playback inside the app
+ - Setting to optionally use an external player (off by default)
+ - Setting to force landscape when playing video (on by default)
  
 0.8.1
  - Decode html entities in program titles
