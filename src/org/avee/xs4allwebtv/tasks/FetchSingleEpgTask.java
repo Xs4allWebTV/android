@@ -16,12 +16,14 @@ import android.app.Activity;
 public class FetchSingleEpgTask extends BaseTask<Void, Void, JSONObject> {
 	private ChannelAdapter adapter;
 	private int position;
+	private ChannelInfo channel;
 
 	protected FetchSingleEpgTask(Activity context, ChannelAdapter adapter,
 			int position) {
 		super(context, null);
 		this.adapter = adapter;
 		this.position = position;
+		channel = (ChannelInfo) adapter.getItem(position);
 	}
 	
 	protected void onSuccess(JSONObject result) {
@@ -32,8 +34,7 @@ public class FetchSingleEpgTask extends BaseTask<Void, Void, JSONObject> {
 	@Override
 	protected JSONObject doInBackground(Void... params) {
 		try {
-			ChannelInfo channel = (ChannelInfo) adapter.getItem(position);
-			JSONObject epg = HttpUtil.fetchJSONObject(URLS.EPG + "?current&next&channel="+EPGID.get(channel.getChannelKey()));
+			JSONObject epg = HttpUtil.fetchJSONObject(URLS.EPG + "?current&next&channel="+channel.getEpgID());
 			return epg;
 		} catch (JSONException e) {
 			error = e;

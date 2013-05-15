@@ -4,6 +4,7 @@
     <string name="app_name">Xs4all WebTV</string>
     <string name="menu_settings">Settings</string>
     <string name="no_epg_data">(no epg data)</string>
+    <string name="epg_error">(Error: %s)</string>
     <string name="zenderlogo">Logo</string>
     <string name="zendernaam">Zender</string>
 
