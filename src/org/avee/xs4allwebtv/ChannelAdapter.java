@@ -1,6 +1,8 @@
 package org.avee.xs4allwebtv;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -46,8 +48,20 @@ public class ChannelAdapter extends BaseAdapter {
 		txtName.setText(channel.getChannelName());	
 		ImageView img = (ImageView) result.findViewById(R.id.imgChannelLogo);
 		img.setImageBitmap(channel.getLogoImage());
-		TextView txtProgram = (TextView) result.findViewById(R.id.txtCurrentProgram);
-		txtProgram.setText(channel.getCurrentProgram());	
+		TextView txtCurrentProgram = (TextView) result.findViewById(R.id.txtCurrentProgram);
+		TextView txtNextProgram = (TextView) result.findViewById(R.id.txtNextProgram);
+		
+		try {
+			SimpleDateFormat df = new SimpleDateFormat("HH:mm", Locale.getDefault());
+			String currentText = df.format(channel.getCurrentStart()) + " " + channel.getCurrentProgram();
+			String nextText = df.format(channel.getNextStart()) + " " + channel.getNextProgram();
+			txtCurrentProgram.setText(currentText);
+			txtNextProgram.setText(nextText);
+		} catch (Exception e) {
+			txtCurrentProgram.setText(e.getMessage());
+			txtNextProgram.setText(R.string.no_epg_data);
+		}	
+		
 		return result;
 	}
 

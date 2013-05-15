@@ -4,9 +4,9 @@ import org.avee.xs4allwebtv.ChannelInfo;
 import org.avee.xs4allwebtv.MainActivity;
 import org.avee.xs4allwebtv.URLS;
 import org.avee.xs4allwebtv.VideoActivity;
+import org.avee.xs4allwebtv.util.HttpUtil;
 import org.json.JSONObject;
 
-import util.HttpUtil;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;

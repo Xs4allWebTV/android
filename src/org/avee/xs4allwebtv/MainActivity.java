@@ -1,5 +1,6 @@
 package org.avee.xs4allwebtv;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import org.avee.xs4allwebtv.tasks.FetchChannelsTask;
@@ -21,6 +22,19 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		System.setProperty("http.maxConnections", "8");
+
+		try {
+			File httpCacheDir = new File(getCacheDir(), "http");
+			long httpCacheSize = 10 * 1024 * 1024; // 10 MiB
+			// Create using reflection, android 4+ only.
+			Class.forName("android.net.http.HttpResponseCache")
+					.getMethod("install", File.class, long.class)
+					.invoke(null, httpCacheDir, httpCacheSize);
+		}
+		catch (Exception httpResponseCacheNotAvailable) {
+		}
 
 		setContentView(R.layout.activity_main);
 
@@ -86,5 +100,21 @@ public class MainActivity extends Activity {
 			return true;
 		}
 		return false;
+	}
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		try {
+			Object cache = Class.forName("android.net.http.HttpResponseCache")
+								.getMethod("getInstalled")
+								.invoke(null);
+			if(cache != null) {
+				Class.forName("android.net.http.HttpResponseCache")
+				.getMethod("flush")
+				.invoke(cache);
+			}
+		} catch (Exception e) {
+		}
 	}
 }

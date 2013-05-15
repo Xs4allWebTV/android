@@ -1,5 +1,6 @@
 package org.avee.xs4allwebtv;
 
+import java.util.Date;
 import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -11,6 +12,8 @@ public class ChannelInfo implements Parcelable {
 
 	private String currentProgram;
 	private String nextProgram;
+	private Date currentStart;
+	private Date nextStart;
 
 	private Bitmap logoImage;
 
@@ -19,6 +22,8 @@ public class ChannelInfo implements Parcelable {
 		this.channelName = name;
 		this.currentProgram = "Geen gidsinformatie beschikbaar";
 		this.nextProgram = "Geen gidsinformatie beschikbaar";
+		this.currentStart = new Date();
+		this.nextStart = new Date();
 	}
 	
 	public ChannelInfo(Parcel in) {
@@ -27,6 +32,8 @@ public class ChannelInfo implements Parcelable {
 		this.logoImage = in.readParcelable(null);
 		this.currentProgram = in.readString();
 		this.nextProgram = in.readString();
+		this.currentStart = (Date) in.readValue(null);
+		this.nextStart = (Date) in.readValue(null);
 	}
 
 	public String getChannelKey() {
@@ -51,6 +58,22 @@ public class ChannelInfo implements Parcelable {
 
 	public void setNextProgram(String nextProgram) {
 		this.nextProgram = nextProgram;
+	}
+
+	public Date getCurrentStart() {
+		return currentStart;
+	}
+
+	public void setCurrentStart(Date currentStart) {
+		this.currentStart = currentStart;
+	}
+
+	public Date getNextStart() {
+		return nextStart;
+	}
+
+	public void setNextStart(Date nextStart) {
+		this.nextStart = nextStart;
 	}
 
 	@Override
@@ -78,6 +101,8 @@ public class ChannelInfo implements Parcelable {
 		dest.writeParcelable(logoImage, flags);
 		dest.writeString(currentProgram);
 		dest.writeString(nextProgram);
+		dest.writeValue(currentStart);
+		dest.writeValue(nextStart);
 	}
 
 	public static final Parcelable.Creator<ChannelInfo> CREATOR = new Parcelable.Creator<ChannelInfo>() {

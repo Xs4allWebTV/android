@@ -1,4 +1,12 @@
-﻿0.8.2
+0.8.3
+ - Now & Next (thanks to Oscar)
+ - Moved util package.
+ - Cleaned git repository and moved it to https://github.com/Xs4allWebTV/
+ - Added proper i18n strings (thanks to Oscar)
+ - Added http caching (Android 4+ only)
+ - 
+
+0.8.2
  - Switch all API urls to https.
  - Video playback inside the app
  - Setting to optionally use an external player (off by default)

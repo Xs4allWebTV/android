@@ -1,4 +1,4 @@
-package util;
+package org.avee.xs4allwebtv.util;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SettingsActivity" android:configChanges="orientation|screenSize"/>
-        <activity android:name=".VideoActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:configChanges="orientation|screenSize"/>
+        <activity android:name="org.avee.xs4allwebtv.VideoActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:configChanges="orientation|screenSize"/>
     </application>
 
 </manifest>

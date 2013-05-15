@@ -1,4 +1,4 @@
-package util;
+package org.avee.xs4allwebtv.util;
 
 public final class EPGID {
 	/***

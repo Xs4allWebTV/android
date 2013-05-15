@@ -5,10 +5,10 @@ import org.avee.xs4allwebtv.ChannelAdapter;
 import org.avee.xs4allwebtv.ChannelInfo;
 import org.avee.xs4allwebtv.R;
 import org.avee.xs4allwebtv.URLS;
+import org.avee.xs4allwebtv.util.HttpUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import util.HttpUtil;
 import android.app.Activity;
 import android.widget.ListView;
 
