@@ -3,9 +3,14 @@
 
     <string name="app_name">Xs4all WebTV</string>
     <string name="menu_settings">Settings</string>
-    <string name="no_epg_data">(no epg data)</string>
+    <string name="no_epg_data">Geen EPG data beschikbaar</string>
     <string name="epg_error">(Error: %s)</string>
     <string name="zenderlogo">Logo</string>
     <string name="zendernaam">Zender</string>
-
+    <string name="loading_epg">Wordt opgehaald…</string>
+    <string name="error">Error</string>
+    <string name="vitamio_failed">Vitamio installatie mislukt</string>
+    <string name="down">Down</string>
+    <string name="up">Up</string>
+    
 </resources>

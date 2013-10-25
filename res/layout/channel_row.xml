@@ -3,9 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="80dp"
     android:orientation="horizontal"
-    android:background="#111111" >
+    android:background="@drawable/listbg" >
 
-    <ImageView
+    <com.loopj.android.image.SmartImageView
         android:id="@+id/imgChannelLogo"
         android:contentDescription="@string/zenderlogo"
         android:layout_width="60dp"
@@ -13,7 +13,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginTop="4dp"
         android:src="@drawable/ic_launcher" />
-
+            
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
@@ -45,5 +45,4 @@
             android:text="@string/no_epg_data" />
         
     </LinearLayout>
-
 </LinearLayout>

@@ -4,21 +4,17 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import com.loopj.android.image.SmartImageView;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ChannelAdapter extends BaseAdapter {
-	private ArrayList<ChannelInfo> channels;
-	Context context;
-	
-	public ChannelAdapter(Context context, ArrayList<ChannelInfo> channels) {
-		this.channels = channels;
-		this.context = context;
+	public ChannelAdapter() {
 	}
 
 	@Override
@@ -39,15 +35,15 @@ public class ChannelAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View result = convertView;
+		ChannelInfo channel = getChannels().get(position);
 		if(result == null) {
-			LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			LayoutInflater vi = (LayoutInflater)App.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			result = vi.inflate(R.layout.channel_row, parent, false);
 		}
-		ChannelInfo channel = getChannels().get(position);
+		SmartImageView img = (SmartImageView) result.findViewById(R.id.imgChannelLogo);
+		img.setImage(channel.getLogoImage());
 		TextView txtName = (TextView) result.findViewById(R.id.txtChannelName);
 		txtName.setText(channel.getChannelName());	
-		ImageView img = (ImageView) result.findViewById(R.id.imgChannelLogo);
-		img.setImageBitmap(channel.getLogoImage());
 		TextView txtCurrentProgram = (TextView) result.findViewById(R.id.txtCurrentProgram);
 		TextView txtNextProgram = (TextView) result.findViewById(R.id.txtNextProgram);
 		
@@ -66,6 +62,6 @@ public class ChannelAdapter extends BaseAdapter {
 	}
 
 	public ArrayList<ChannelInfo> getChannels() {
-		return channels;
+		return App.getChannels();
 	}
 }

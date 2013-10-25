@@ -14,5 +14,9 @@
         				android:key="videoLandscape"
         				android:defaultValue="true"
         				android:dependency="videoExternal"/>
-
+    <CheckBoxPreference android:title="Use Vitamio Decoder"
+        				android:key="useVitamio"
+        				android:defaultValue="false"
+        				android:dependency="videoExternal"/>
+    
 </PreferenceScreen>

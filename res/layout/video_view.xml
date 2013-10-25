@@ -1,25 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/video_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
-    <VideoView android:id="@+id/videoview"   
-        android:layout_height="fill_parent"
-        android:layout_width="fill_parent" />
+    android:orientation="vertical" >
 
-<!-- Overlay over video  
-	<LinearLayout
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:id="@+id/ControlLayout"
-		android:layout_gravity="bottom|center_horizontal">
-	
+    <!-- Overlay over video -->
+    <org.avee.xs4allwebtv.VideoControllerLayout
+        android:id="@+id/video_controls"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
 
-		<Button
-		    android:text="Knopje"
-		    android:id="@+id/Button01"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content" /> 
-	</LinearLayout>
--->
+        <LinearLayout 
+            android:id="@+id/channel_switcher"
+            android:layout_gravity="top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2pt"
+            android:orientation="vertical">
+	        <ImageButton
+	            android:contentDescription="@string/up"
+	            android:id="@+id/btn_nextchannel"
+	            android:layout_width="35pt"
+	            android:layout_height="35pt"
+	            android:background="@drawable/transbg" 
+	            android:src="@drawable/up"
+	            android:padding="2pt"
+	            android:scaleType="fitCenter"
+	            android:textColor="#FFF"
+	            android:onClick="nextChannel"/>
+	        <ImageButton
+	            android:contentDescription="@string/down"
+	            android:id="@+id/btn_prevchannel"
+	            android:layout_width="35pt"
+	            android:layout_height="35pt"
+	            android:background="@drawable/transbg" 
+	            android:src="@drawable/down"
+	            android:padding="2pt"
+	            android:scaleType="fitCenter"
+	            android:textColor="#FFF"
+	            android:onClick="prevChannel"/>
+	        </LinearLayout>
+     </org.avee.xs4allwebtv.VideoControllerLayout>
+
 </FrameLayout>

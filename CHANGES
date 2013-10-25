@@ -1,10 +1,36 @@
+BUGS:
+- Might mis EPG data when it's outside of the requested window (check with epg-api about how to best handle this...)
+- i18n (Dutch and English)
+
+TODO:
+- Detect split-window and don't force landscape when split
+- S Pen hover highlight
+- Zap + info overlay over videoview
+- Configurable channel order
+- ListView performance bij 
+
+Perhaps
+- Airplay / send to xbmc support?
+- Uitgebreide TV gids
+  - Add reminders
+- VOD support
+
 0.8.3
- - Now & Next (thanks to Oscar)
+ - Now & Next (thanks to Oscar).
  - Moved util package.
  - Cleaned git repository and moved it to https://github.com/Xs4allWebTV/
- - Added proper i18n strings (thanks to Oscar)
- - Added http caching (Android 4+ only)
- - 
+ - Added proper i18n strings (thanks to Oscar).
+ - Use v2 API (adds support for more channels).
+ - Handle HTTP requests with Android Asynchronous Http Client (http://loopj.com/android-async-http/).
+ - Use Smart Image View for improved handling of channel images (http://loopj.com/android-smart-image-view/).
+ - Highlight selected item in channel list (usefull with keyboard usage).
+ - Enable Samsung multi-window support.
+ - Add Vitamio for playback on devices without HLS support.
+ - Add support for adaptive streaming (doesn't work properly in vitamio, does work on recent Samsungs).
+ - Add channel switching buttons to player (still needs auto-hide).
+ - EPG refreshes when the channel list is activated again and EPG is outdated.
+ - Update to latest SDK.
+ 
 
 0.8.2
  - Switch all API urls to https.

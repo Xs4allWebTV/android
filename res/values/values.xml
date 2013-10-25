@@ -4,6 +4,7 @@
         <item name="low">Low</item>
         <item name="medium">Medium</item>
         <item name="high">High</item>
+        <item name="adaptive">Adaptive</item>
         <!-- <item name="hd">HD</item> -->
     </string-array>
 
@@ -11,6 +12,7 @@
         <item name="low">low</item>
         <item name="medium">medium</item>
         <item name="high">high</item>
+        <item name="adaptive">adaptive</item>
         <!-- <item name="hd">hd</item> -->
     </string-array>
 </resources>

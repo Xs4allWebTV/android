@@ -4,11 +4,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import org.avee.xs4allwebtv.util.EPGID;
+import org.avee.xs4allwebtv.client.WebtvClient;
+import org.avee.xs4allwebtv.util.EpgMode;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.graphics.Bitmap;
+import com.loopj.android.image.SmartImage;
+import com.loopj.android.image.WebImage;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.Html;
@@ -17,36 +20,33 @@ public class ChannelInfo implements Parcelable {
 
 	private String channelKey;
 	private String channelName;
-	private String epgID;
 	
 	private String currentProgram;
 	private String nextProgram;
 	private Date currentStart;
 	private Date nextStart;
-	private Date nextEnd;
 	
 	private Date epgAge;
-
-	private Bitmap logoImage;
+	private SmartImage logoImage;
 
 	public ChannelInfo(String key, String name) {
 		this.channelKey = key;
 		this.channelName = name;
-		this.currentProgram = "Geen gidsinformatie beschikbaar";
-		this.nextProgram = "Geen gidsinformatie beschikbaar";
+		this.currentProgram = App.str(R.string.loading_epg);
+		this.nextProgram = "";
 		this.currentStart = new Date();
 		this.nextStart = new Date();
-		this.epgID = EPGID.get(key);
+		this.logoImage = new WebImage(String.format(WebtvClient.CHANNEL_LOGO, channelKey));
 	}
 	
 	public ChannelInfo(Parcel in) {
 		this.channelKey = in.readString();
 		this.channelName = "* " + in.readString();
-		this.logoImage = in.readParcelable(null);
 		this.currentProgram = in.readString();
 		this.nextProgram = in.readString();
 		this.currentStart = (Date) in.readValue(null);
 		this.nextStart = (Date) in.readValue(null);
+		this.logoImage = new WebImage(String.format(WebtvClient.CHANNEL_LOGO, channelKey));
 	}
 
 	public String getChannelKey() {
@@ -57,87 +57,94 @@ public class ChannelInfo implements Parcelable {
 		return channelName;
 	}
 
-	public String getEpgID() {
-		return epgID;
-	}
-
 	public String getCurrentProgram() {
 		return currentProgram;
 	}
 	
-	public void setEpgData(JSONArray epg)
+	public void setEpgData(JSONArray epg, EpgMode mode)
 	{
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.US);
 		Date now = new Date();
 
-		try	{
-			for(int j = 0; j < epg.length(); j++) {
-				JSONObject current = epg.getJSONObject(j);
+		if(mode == EpgMode.All)
+		{
+			try	{
+				for(int j = 0; j < epg.length(); j++) {
+					JSONObject current = epg.getJSONObject(j);
+					Date start = df.parse(current.getString("time_start"));
+					Date end = df.parse(current.getString("time_end"));
+					if(start.before(now) && end.after(now)) {
+						currentProgram = Html.fromHtml(current.getString("title")).toString();
+						currentStart = start;
+						try {
+							JSONObject next = epg.getJSONObject(j+1); // assumption: EPG in time order!
+							nextProgram = Html.fromHtml(next.getString("title")).toString();
+							nextStart = df.parse(next.getString("time_start"));
+						} catch (Exception e) {
+							// fetching the next program failed for some reason
+							nextProgram = String.format(App.str(R.string.epg_error), e.getMessage());
+							nextStart = end;
+						}
+						epgAge = now;
+						break;
+					} else {
+						currentProgram = App.str(R.string.no_epg_data);
+					}
+				}
+			} catch (Exception e) {
+				// fetching the next program failed for some reason
+				currentProgram = App.strf(R.string.epg_error, e.getMessage());
+				currentStart = now;
+			}
+		}
+		else 
+		{
+			try
+			{
+				JSONObject current = epg.getJSONObject(0);
 				Date start = df.parse(current.getString("time_start"));
-				Date end = df.parse(current.getString("time_end"));
-				if(start.before(now) && end.after(now)) {
+				
+				if(mode == EpgMode.Now)
+				{
 					currentProgram = Html.fromHtml(current.getString("title")).toString();
 					currentStart = start;
-					try {
-						JSONObject next = epg.getJSONObject(j+1); // assumption: EPG in time order!
-						nextProgram = Html.fromHtml(next.getString("title")).toString();
-						nextStart = df.parse(next.getString("time_start"));
-						nextEnd = df.parse(next.getString("time_end"));
-					} catch (Exception e) {
-						// fetching the next program failed for some reason
-						nextProgram = String.format(App.getContext().getString(R.string.epg_error), e.getMessage());
-						nextStart = end;
-					}
-					epgAge = now;
-					break;
 				}
+				else
+				{
+					nextProgram = Html.fromHtml(current.getString("title")).toString();
+					nextStart = df.parse(current.getString("time_start"));
+				}
+			} catch (Exception e) {
+				// fetching the next program failed for some reason
+				currentProgram = String.format(App.str(R.string.epg_error), e.getMessage());
+				currentStart = now;
 			}
-		} catch (Exception e) {
-			// fetching the next program failed for some reason
-			currentProgram = String.format(App.getContext().getString(R.string.epg_error), e.getMessage());
-			currentStart = now;
 		}
 	}
 	
-	public void setCurrentProgram(String currentProgram) {
-		this.currentProgram = currentProgram;
-	}
-
 	public String getNextProgram() {
 		return nextProgram;
-	}
-
-	public void setNextProgram(String nextProgram) {
-		this.nextProgram = nextProgram;
 	}
 
 	public Date getCurrentStart() {
 		return currentStart;
 	}
 
-	public void setCurrentStart(Date currentStart) {
-		this.currentStart = currentStart;
-	}
-
 	public Date getNextStart() {
 		return nextStart;
 	}
 
-	public void setNextStart(Date nextStart) {
-		this.nextStart = nextStart;
+	public Date getEpgAge() {
+		return epgAge;
 	}
-
+	
+	public SmartImage getLogoImage() {
+		return logoImage;
+	}
+	
 	@Override
 	public String toString() {
 		return channelName;
-	}
-
-	public Bitmap getLogoImage() {
-		return logoImage;
-	}
-
-	public void setLogoImage(Bitmap logoImage) {
-		this.logoImage = logoImage;
 	}
 
 	@Override
@@ -149,7 +156,6 @@ public class ChannelInfo implements Parcelable {
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeString(channelKey);
 		dest.writeString(channelName);
-		dest.writeParcelable(logoImage, flags);
 		dest.writeString(currentProgram);
 		dest.writeString(nextProgram);
 		dest.writeValue(currentStart);
